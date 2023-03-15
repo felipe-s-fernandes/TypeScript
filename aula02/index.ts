@@ -1,9 +1,13 @@
 type MyUnionType = number | string | boolean | void | null | undefined;
 
 class Validator {
-    public data: any;
+    protected _data: any;
     constructor(data: any) {
-        this.data = data;
+        this._data = data;
+    }
+
+    get data(): any {
+        return this._data;
     }
 }
 
@@ -14,6 +18,10 @@ class StringValidator extends Validator {
         }
         super(data);
     }
+
+    logString(): void {
+        console.log(this._data);
+    }
 }
 
 class NumberValidator extends Validator {
@@ -22,6 +30,10 @@ class NumberValidator extends Validator {
             throw new Error("O tipo está errado");
         }
         super(data);
+    }
+
+    logNumber(): void {
+        console.log(this._data);
     }
 }
 
@@ -32,13 +44,18 @@ class BooleanValidator extends Validator {
         }
         super(data);
     }
+
+    logBoolean(): void {
+        console.log(this._data);
+    }
 }
 
 const string = new StringValidator("string");
-console.log(string.data);
+string.data;
+string.logString();
 
 const number = new NumberValidator(123);
-console.log(number.data);
+number.logNumber();
 
 const boolean = new BooleanValidator(true);
-console.log(boolean.data);
+boolean.logBoolean();

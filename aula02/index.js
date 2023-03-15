@@ -1,6 +1,9 @@
 class Validator {
     constructor(data) {
-        this.data = data;
+        this._data = data;
+    }
+    get data() {
+        return this._data;
     }
 }
 class StringValidator extends Validator {
@@ -10,6 +13,9 @@ class StringValidator extends Validator {
         }
         super(data);
     }
+    logString() {
+        console.log(this._data);
+    }
 }
 class NumberValidator extends Validator {
     constructor(data) {
@@ -17,6 +23,9 @@ class NumberValidator extends Validator {
             throw new Error("O tipo está errado");
         }
         super(data);
+    }
+    logNumber() {
+        console.log(this._data);
     }
 }
 class BooleanValidator extends Validator {
@@ -26,10 +35,14 @@ class BooleanValidator extends Validator {
         }
         super(data);
     }
+    logBoolean() {
+        console.log(this._data);
+    }
 }
 const string = new StringValidator("string");
-console.log(string.data);
+string.data;
+string.logString();
 const number = new NumberValidator(123);
-console.log(number.data);
+number.logNumber();
 const boolean = new BooleanValidator(true);
-console.log(boolean.data);
+boolean.logBoolean();
