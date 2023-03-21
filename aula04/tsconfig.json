@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "noEmitOnError": true,
+        "noImplicitAny": true,
+        "allowJs": true,
+        "strict": true,
+        "lib": [
+            "es6",
+            "DOM"
+        ],
+        "outDir": "dist/js",
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+    },
+    "include" : ["app/**/*"]
+}
