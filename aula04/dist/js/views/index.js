@@ -23,6 +23,8 @@ postButton.onclick = () => __awaiter(void 0, void 0, void 0, function* () {
         email: email.value,
         password: password.value,
     };
+    if (userIsEmpty(user))
+        return;
     const response = yield HTTPRequest("http://localhost:8000/accounts", "POST", user);
     console.log(response);
 });
@@ -31,10 +33,11 @@ loginButton.onclick = () => __awaiter(void 0, void 0, void 0, function* () {
     const email = document.querySelector("email-input");
     const password = document.querySelector("password-input");
     const user = {
-        name: name.value,
         email: email.value,
         password: password.value,
     };
+    if (userIsEmpty(user))
+        return;
     const response = yield HTTPRequest("http://localhost:8000/accounts/login", "POST", user);
     console.log(response);
 });
@@ -47,6 +50,8 @@ patchButton.onclick = () => __awaiter(void 0, void 0, void 0, function* () {
         email: email.value,
         password: password.value,
     };
+    if (userIsEmpty(user))
+        return;
     const response = yield HTTPRequest("http://localhost:8000/accounts", "PATCH", user);
     console.log(response);
 });
@@ -66,4 +71,14 @@ function HTTPRequest(url, method, body) {
             throw error;
         }
     });
+}
+function userIsEmpty(user) {
+    let key;
+    for (key in user) {
+        if (user[key] == "") {
+            alert("Preencha o campo " + key);
+            return true;
+        }
+    }
+    return false;
 }

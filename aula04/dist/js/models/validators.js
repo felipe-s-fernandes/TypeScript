@@ -61,4 +61,7 @@ export class NameValidator extends RegexValidator {
     constructor(data) {
         super(data);
     }
+    get regex() {
+        return /^([a-z]{1,})([ ]{1}[a-z]{1,}){0,}$/gim;
+    }
 }

@@ -40,6 +40,8 @@ postButton.onclick = async () => {
         password: password.value,
     };
 
+    if (userIsEmpty(user)) return;
+
     const response: UserData = await HTTPRequest(
         "http://localhost:8000/accounts",
         "POST",
@@ -53,13 +55,14 @@ loginButton.onclick = async () => {
     const email = document.querySelector("email-input") as EmailInput;
     const password = document.querySelector("password-input") as PasswordInput;
 
-    const user: IUser = {
-        name: name.value,
+    const user: Partial<IUser> = {
         email: email.value,
         password: password.value,
     };
 
-    const response: Partial<UserData> = await HTTPRequest(
+    if (userIsEmpty(user)) return;
+
+    const response: LoginData = await HTTPRequest(
         "http://localhost:8000/accounts/login",
         "POST",
         user
@@ -78,6 +81,8 @@ patchButton.onclick = async () => {
         password: password.value,
     };
 
+    if (userIsEmpty(user)) return;
+
     const response: UserData = await HTTPRequest(
         "http://localhost:8000/accounts",
         "PATCH",
@@ -86,7 +91,7 @@ patchButton.onclick = async () => {
     console.log(response);
 };
 
-async function HTTPRequest(url: string, method: string, body: IUser) {
+async function HTTPRequest(url: string, method: string, body: Partial<IUser>) {
     const options: RequestInit = {
         method: method,
         headers: { "Content-Type": "application/json" },
@@ -102,4 +107,15 @@ async function HTTPRequest(url: string, method: string, body: IUser) {
         console.error(error);
         throw error;
     }
+}
+
+function userIsEmpty(user: Partial<IUser>): boolean {
+    let key: keyof IUser;
+    for (key in user) {
+        if (user[key] == "") {
+            alert("Preencha o campo " + key);
+            return true;
+        }
+    }
+    return false;
 }
